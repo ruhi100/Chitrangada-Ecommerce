@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chitrangada Checkout</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#fff7f5,#ffe4ec);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.box{
+    background:white;
+    width:420px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+h1{
+    color:#c2185b;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.pay{
+    background:#c2185b;
+    color:white;
+}
+
+.upi{
+    background:#4285F4;
+    color:white;
+}
+
+.qr{
+    width:220px;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Chitrangada Payment</h1>
+
+<p>Secure Checkout System</p>
+
+<button class="btn pay" onclick="placeOrder()">
+Place Order & Pay
+</button>
+
+<button class="btn upi" onclick="openUPI()">
+💎 Pay via UPI Apps
+</button>
+
+<h3>UPI ID</h3>
+<p><b>ratnamallick619@oksbi</b></p>
+
+<img src="WhatsApp Image 2026-06-08 at 4.58.18 PM.jpeg" class="qr">
+
+</div>
+
+<script>
+
+const BACKEND_URL = "https://YOUR-BACKEND.onrender.com"; 
+// 👆 এখানে তোমার Render backend URL বসাবে
+
+// 1️⃣ Order create + backend save
+async function placeOrder(){
+
+    let name = prompt("Enter Your Name");
+    let phone = prompt("Enter Your Phone");
+    let amount = 499;
+
+    const res = await fetch(BACKEND_URL + "/create-order", {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            name:name,
+            phone:phone,
+            product:"Chitrangada Jewellery",
+            amount:amount
+        })
+    });
+
+    const data = await res.json();
+
+    alert("Order Created ✔ ID: " + data.orderId);
+
+    // simulate payment success (backend update)
+    await fetch(BACKEND_URL + "/payment-success", {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            orderId:data.orderId
+        })
+    });
+
+    alert("Payment Confirmed & Order Placed 🎉");
+}
+
+
+// 2️⃣ UPI Open (manual payment option)
+function openUPI(){
+    window.location.href =
+    "upi://pay?pa=ratnamallick619@oksbi&pn=Chitrangada&cu=INR&am=499";
+}
+
+</script>
+
+</body>
+</html>

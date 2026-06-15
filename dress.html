@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chitrangada | Gach Kouto Collection</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background:#fff7f5;
+      color:#333;
+    }
+
+    /* NAVBAR */
+    nav{
+      background:white;
+      padding:15px 50px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 10px rgba(0,0,0,0.1);
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+    }
+
+    .logo img{
+      height:60px;
+      width:60px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .logo h1{
+      color:#c2185b;
+      font-size:30px;
+    }
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:25px;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:#444;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    nav ul li a:hover{
+      color:#d81b60;
+    }
+
+    /* HERO */
+
+    .hero{
+      height:60vh;
+      background:url('images/dress.jpeg') center/cover;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      position:relative;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+    }
+
+    .hero h2{
+      font-size:55px;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      font-size:20px;
+    }
+
+    /* PRODUCTS */
+
+    .products{
+      padding:70px 50px;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:45px;
+      color:#c2185b;
+      margin-bottom:50px;
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:35px;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.1);
+      transition:0.4s;
+      cursor:pointer;
+      position:relative;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+    }
+
+    .card img{
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      transition:0.4s;
+    }
+
+    .card:hover img{
+      transform:scale(1.05);
+    }
+
+    .card-content{
+      padding:20px;
+    }
+
+    .card-content h3{
+      color:#d81b60;
+      margin-bottom:10px;
+      font-size:28px;
+    }
+
+    .price{
+      font-size:22px;
+      color:#444;
+      margin-bottom:12px;
+      font-weight:bold;
+    }
+
+    .features{
+      margin-bottom:15px;
+      color:#666;
+      line-height:1.7;
+    }
+
+    .btn{
+      display:inline-block;
+      background:#d81b60;
+      color:white;
+      padding:12px 25px;
+      border-radius:30px;
+      text-decoration:none;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    .btn:hover{
+      background:#ad1457;
+    }
+
+    /* BADGE */
+
+    .badge{
+      position:absolute;
+      top:15px;
+      left:15px;
+      background:gold;
+      color:black;
+      padding:8px 14px;
+      border-radius:30px;
+      font-size:14px;
+      font-weight:bold;
+    }
+
+    /* MODAL */
+
+    .modal{
+      display:none;
+      position:fixed;
+      z-index:9999;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.9);
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+    }
+
+    .modal img{
+      max-width:80%;
+      max-height:75vh;
+      border-radius:15px;
+      transition:0.3s;
+    }
+
+    .zoom-controls{
+      margin-top:20px;
+      display:flex;
+      gap:15px;
+    }
+
+    .zoom-btn{
+      padding:12px 22px;
+      border:none;
+      background:#d81b60;
+      color:white;
+      font-size:20px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+
+    .close{
+      position:absolute;
+      top:30px;
+      right:40px;
+      font-size:45px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* FEATURES SECTION */
+
+    .special-features{
+      padding:70px 40px;
+      background:white;
+    }
+
+    .feature-boxes{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .feature-box{
+      background:#fff7fb;
+      padding:30px;
+      border-radius:20px;
+      text-align:center;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .feature-box:hover{
+      transform:translateY(-8px);
+    }
+
+    .feature-box h3{
+      color:#d81b60;
+      margin:15px 0;
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:#c2185b;
+      color:white;
+      text-align:center;
+      padding:30px;
+      margin-top:50px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:768px){
+
+      nav{
+        padding:15px 20px;
+        flex-direction:column;
+        gap:15px;
+      }
+
+      .hero h2{
+        font-size:38px;
+      }
+
+      .section-title{
+        font-size:35px;
+      }
+
+      .modal img{
+        max-width:95%;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <a href="index.html" class="logo">
+      <img src="images/WhatsApp Image 2026-05-25 at 12.41.41 PM.jpeg" alt="Chitrangada Logo">
+      <h1>Chitrangada</h1>
+    </a>
+
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="contract.html">Contact</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Hand Printed Dresses</h2>
+      <p>Hand Printed Traditional Bengali Collection</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+
+  <section class="products" id="products">
+
+    <h2 class="section-title">Our Premium Collection</h2>
+
+    <div class="product-grid">
+
+      <!-- PRODUCT 1 -->
+
+      <div class="card">
+        <span class="badge">Best Seller</span>
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.51 PM.jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Red Kurta</h3>
+
+          <div class="price">₹999</div>
+
+          <div class="features">
+            ✔ Handmade Design <br>
+            ✔ Bengali Bridal Theme <br>
+            ✔ Premium Wooden Finish <br>
+            ✔ Custom Name Available
+          </div>
+
+          <a href="payment.html?product=Hand Printed Red Kurta&price=999" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand Printed Red Kurta"
+          data-price="999">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 2 -->
+
+      <div class="card">
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.51 PM (2).jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Red Baby Dress</h3>
+
+          <div class="price">₹999</div>
+
+          <div class="features">
+            ✔ Floral Artwork <br>
+            ✔ Gold Foil Decoration <br>
+            ✔ Bridal Ceremony Special <br>
+            ✔ Elegant Finish
+          </div>
+
+          <a href="payment.html?product=Hand Printed Red Baby Dress&price=999" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand printed Red Baby Dress"
+          data-price="999">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 3 -->
+
+      <div class="card">
+        <span class="badge">New</span>
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.51 PM (1).jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Red Baby Dress</h3>
+
+          <div class="price">₹999</div>
+
+          <div class="features">
+            ✔ Premium Craftsmanship <br>
+            ✔ Bengali Art Style <br>
+            ✔ Hand Painted <br>
+            ✔ Wedding Gift Ready
+          </div>
+
+          <a href="payment.html?product=Hand Printed Red Baby Dress&price=999" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand printed Red Baby Dress"
+          data-price="999">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+    <!-- PRODUCT 4 -->
+
+      <div class="card">
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.50 PM.jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Yeallow Baby Dress</h3>
+
+          <div class="price">₹999</div>
+
+          <div class="features">
+            ✔ Personalized Name <br>
+            ✔ Hand Painted Design <br>
+            ✔ Bengali Wedding Theme <br>
+            ✔ Elegant Finish
+          </div>
+
+          <a href="payment.html?product=Hand Printed Yellow Baby Dress&price=999" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand Printed Yellow Baby Dress"
+          data-price="999">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+    <!-- PRODUCT 5 -->
+
+      <div class="card">
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.50 PM (1).jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Baby Dress</h3>
+
+          <div class="price">₹999</div>
+
+          <div class="features">
+            ✔ Complete Wedding Set <br>
+            ✔ Handcrafted with Care <br>
+            ✔ Bengali Cultural Design <br>
+            ✔ Premium Quality
+          </div>
+
+          <a href="payment.html?product=Hand Printed Baby Dress&price=999" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand Printed Baby Dress "
+          data-price="999">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 6 -->
+      <div class="card">
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.49 PM.jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Printed Yellow Baby dress</h3>
+
+          <div class="price">₹899</div>
+
+          <div class="features">
+            ✔ Handcrafted Excellence <br>
+            ✔ Bengali Wedding Aesthetics <br>
+            ✔ Premium Materials Used <br>
+            ✔ Perfect for Special Occasions
+          </div>
+
+          <a href="payment.html?product=Hand printed Yellow Baby dress&price=899" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand printed Yellow Baby dress"
+          data-price="899">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 7 -->
+      <div class="card">
+
+        <img src="image.dress/WhatsApp Image 2026-06-14 at 5.12.49 PM (1).jpeg" onclick="openModal(this.src)">
+
+        <div class="card-content">
+          <h3>Hand Print Baby Dress</h3>
+
+          <div class="price">₹899</div>
+
+          <div class="features">
+            ✔ Exclusive Design <br>
+            ✔ Hand Painted Details <br>
+            ✔ Bengali Wedding Theme <br>
+            ✔ High-End Finish
+          </div>
+
+          <a href="payment.html?product=Hand Print Baby Dress&price=899" class="btn">
+            Order Now
+          </a>
+          <a href="#"
+          class="btn add-cart"
+          data-name="Hand printed Baby Dress"
+          data-price="899">
+           Add To Cart
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FEATURES -->
+
+  <section class="special-features" id="features">
+
+    <h2 class="section-title">Why Choose Chitrangada?</h2>
+
+    <div class="feature-boxes">
+
+      <div class="feature-box">
+        <h3>100% Handmade</h3>
+        <p>Every product is carefully handcrafted with love and traditional Bengali artistry.</p>
+      </div>
+
+      <div class="feature-box">
+        <h3>Custom Design</h3>
+        <p>We create personalised wedding collections according to your requirements.</p>
+      </div>
+
+      <div class="feature-box">
+        <h3>Premium Quality</h3>
+        <p>Best materials and detailed finishing for elegant bridal presentation.</p>
+      </div>
+
+      <div class="feature-box">
+        <h3>Fast Delivery</h3>
+        <p>Safe packaging and fast shipping across India.</p>
+      </div>
+      
+    </div>
+
+  </section>
+
+  <!-- IMAGE MODAL -->
+
+  <div class="modal" id="imageModal">
+
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <img id="modalImg">
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="zoomIn()">+</button>
+      <button class="zoom-btn" onclick="zoomOut()">-</button>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+
+  <footer id="contact">
+    <h2>Chitrangada</h2>
+    <p>Handmade Jewelry & Bengali Wedding Collection</p>
+    <p>Instagram | WhatsApp | Facebook</p>
+    <a href="https://instagram.com/chitrangada.ruhi" target="_blank">
+      Instagram: @chitrangada.ruhi
+    </a>
+    <br>
+    <a href="https://facebook.com/chitrangada.ruhi" target="_blank">
+      Facebook: @chitrangada.ruhi
+    </a>
+    <br>
+    <a href="https://wa.me/916290858849" target="_blank">
+      WhatsApp: +91 6290858849
+    </a>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    let scale = 1;
+
+    function openModal(src){
+      document.getElementById('imageModal').style.display = 'flex';
+      document.getElementById('modalImg').src = src;
+      scale = 1;
+      document.getElementById('modalImg').style.transform = `scale(${scale})`;
+    }
+
+    function closeModal(){
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    function zoomIn(){
+      scale += 0.2;
+      document.getElementById('modalImg').style.transform = `scale(${scale})`;
+    }
+
+    function zoomOut(){
+      if(scale > 0.5){
+        scale -= 0.2;
+        document.getElementById('modalImg').style.transform = `scale(${scale})`;
+      }
+    }
+
+    // close modal when clicking outside image
+
+    window.onclick = function(event){
+      const modal = document.getElementById('imageModal');
+      if(event.target == modal){
+        closeModal();
+      }
+    }
+
+    // automatic product animation
+
+    const cards = document.querySelectorAll('.card');
+
+    window.addEventListener('scroll', ()=>{
+
+      cards.forEach(card=>{
+
+        const cardTop = card.getBoundingClientRect().top;
+
+        if(cardTop < window.innerHeight - 100){
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
+
+      });
+
+    });
+
+    cards.forEach(card=>{
+      card.style.opacity='0';
+      card.style.transform='translateY(50px)';
+      card.style.transition='0.6s';
+    });
+
+  </script>
+
+</body>
+</html>
+

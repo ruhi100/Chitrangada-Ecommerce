@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chitrangada Cart</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fff7f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.box{
+    background:white;
+    width:500px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+    text-align:center;
+}
+
+h1{
+    color:#c2185b;
+    margin-bottom:20px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    margin:10px 0;
+    background:#fff7fb;
+    border-radius:10px;
+}
+
+.total{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.buy{
+    background:#c2185b;
+    color:white;
+}
+
+.clear{
+    background:#555;
+    color:white;
+}
+
+.remove{
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<h1>My Cart</h1>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: ₹<span id="totalAmount">0</span>
+</div>
+
+<button class="btn buy" onclick="buyNow()">
+Buy All Now
+</button>
+
+<button class="btn clear" onclick="clearCart()">
+Clear Cart
+</button>
+
+</div>
+
+<script>
+
+let cart =
+JSON.parse(localStorage.getItem('cart')) || [];
+
+function loadCart(){
+
+let html = '';
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += Number(item.price);
+
+html += `
+<div class="cart-item">
+
+<div>
+<strong>${item.name}</strong><br>
+₹${item.price}
+</div>
+
+<button
+class="remove"
+onclick="removeItem(${index})">
+X
+</button>
+
+</div>
+`;
+
+});
+
+document.getElementById('cartItems').innerHTML =
+html || "<p>Your cart is empty.</p>";
+
+document.getElementById('totalAmount').innerText =
+total;
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem(
+'cart',
+JSON.stringify(cart)
+);
+
+loadCart();
+
+}
+
+function clearCart(){
+
+localStorage.removeItem('cart');
+
+cart = [];
+
+loadCart();
+
+}
+
+function buyNow(){
+
+window.location.href =
+'payment.html';
+
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>
